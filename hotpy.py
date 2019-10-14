@@ -1,7 +1,6 @@
 #TODO
 # 1. hotkey abbreviations with special chars
 
-import hotkeys
 from hotkeys import hotkeys
 from pynput.keyboard import Controller, Key, KeyCode, Listener
 
@@ -26,7 +25,7 @@ def on_press(key):
     if key == Key.backspace:
         if keys:
             keys.pop()
-
+    
 def on_release(key):
     if combo == exitHotkey:
         print("exiting...")
