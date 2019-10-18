@@ -10,21 +10,21 @@ combo = set()
 keys = []
 
 def on_press(key):
+
     try:
-        keys.append(str(key.char))
+        keys.append(key.char)
     except AttributeError:
         pass
 
-    if key not in combo:
-        combo.add(key)
-
-    if key == Key.space:
+    if key == Key.space or key == Key.enter:
         checkForHotkey()
-        keys.clear()
 
     if key == Key.backspace:
         if keys:
             keys.pop()
+
+    if key not in combo:
+        combo.add(key)
     
 def on_release(key):
     if combo == exitHotkey:
@@ -39,14 +39,19 @@ def checkForHotkey():
     match = hotkeys.get(hk)
 
     if match: 
-        for i in range(len(keys) + 1):
+        for _ in range(len(keys) + 1):
             keyboard.press(Key.backspace)
             keyboard.release(Key.backspace)
         if callable(match):
             match() 
         elif isinstance(match, str):
             keyboard.type(match)
+            keyboard.press(Key.space)
+            keyboard.release(Key.space)
         print("matched {0} hotkey!".format(hk))
+
+    print(hk)
+    keys.clear()
 
 with Listener(
         on_press=on_press,

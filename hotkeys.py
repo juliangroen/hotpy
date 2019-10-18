@@ -5,6 +5,6 @@ def exampleFunction():
     pyautogui.alert("example alert!")
 
 hotkeys = {
-    "expl": "Example",
+    "expl": "This is an example hotkey.",
     "exfun": exampleFunction
     }
