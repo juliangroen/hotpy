@@ -9,6 +9,13 @@ exitHotkey = {Key.ctrl_l, Key.shift, Key.alt_l, Key.esc}
 combo = set()
 keys = []
 
+def getHotkeysFromFile():
+    with open("./hotkeys.txt") as hkFile:
+        hks = dict(line.strip().split(": ", 1) for line in hkFile)
+    return hks
+
+hkDict = getHotkeysFromFile()
+
 def on_press(key):
 
     try:
@@ -36,7 +43,8 @@ def on_release(key):
 
 def checkForHotkey():
     hk = "".join(keys)
-    match = hotkeys.get(hk)
+    #match = hotkeys.get(hk)
+    match = hkDict.get(hk)
 
     if match: 
         for _ in range(len(keys) + 1):
