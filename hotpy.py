@@ -5,6 +5,7 @@ from pynput.keyboard import Controller, Key, KeyCode, Listener
 
 keyboard = Controller()
 exitHotkey = {Key.ctrl_l, Key.shift, Key.alt_l, Key.esc}
+macExitHotkey = {Key.ctrl_l, Key.shift, Key.cmd_l, Key.esc}
 combo = set()
 keys = []
 
@@ -33,7 +34,7 @@ def on_press(key):
         combo.add(key)
     
 def on_release(key):
-    if combo == exitHotkey:
+    if combo == exitHotkey or macExitHotkey:
         print("exiting...")
         return False
 
