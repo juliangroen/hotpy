@@ -1,5 +1,6 @@
 # script specific files
 hotkeys.txt
+.vscode
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
