@@ -1,6 +1,6 @@
 #TODO
 # 1. hotkey abbreviations with special chars
-
+import os, sys
 from pynput.keyboard import Controller, Key, KeyCode, Listener
 
 keyboard = Controller()
@@ -10,7 +10,10 @@ combo = set()
 keys = []
 
 def getHotkeysFromFile():
-    with open("./hotkeys.txt") as hkFile:
+    hkDir = os.path.dirname(sys.argv[0])
+    pathFile = os.path.join(hkDir, "hotkeys.txt")
+    print(hkDir)
+    with open(pathFile) as hkFile:
         hks = dict(line.strip().split(": ", 1) for line in hkFile)
     return hks
 
@@ -34,7 +37,11 @@ def on_press(key):
         combo.add(key)
     
 def on_release(key):
-    if combo == exitHotkey or macExitHotkey:
+    if combo == exitHotkey:
+        print("exiting...")
+        return False
+
+    if combo == macExitHotkey:
         print("exiting...")
         return False
 
