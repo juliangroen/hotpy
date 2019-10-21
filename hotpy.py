@@ -12,9 +12,8 @@ keys = []
 def getHotkeysFromFile():
     hkDir = os.path.dirname(sys.argv[0])
     pathFile = os.path.join(hkDir, "hotkeys.txt")
-    print(hkDir)
     with open(pathFile) as hkFile:
-        hks = dict(line.strip().split(": ", 1) for line in hkFile)
+        hks = dict(line.strip().split("::", 1) for line in hkFile)
     return hks
 
 hkDict = getHotkeysFromFile()
