@@ -1,7 +1,6 @@
 #TODO
 # 1. hotkey abbreviations with special chars
 
-from hotkeys import hotkeys
 from pynput.keyboard import Controller, Key, KeyCode, Listener
 
 keyboard = Controller()
@@ -57,8 +56,7 @@ def checkForHotkey():
             keyboard.press(Key.space)
             keyboard.release(Key.space)
         print("matched {0} hotkey!".format(hk))
-
-    print(hk)
+    
     keys.clear()
 
 with Listener(
