@@ -1,17 +1,28 @@
 #TODO
 # 1. hotkey abbreviations with special chars
-import os, sys
+import os, sys, json
 from pynput.keyboard import Controller, Key, KeyCode, Listener
 
 keyboard = Controller()
-exitHotkey = {Key.ctrl_l, Key.shift, Key.alt_l, Key.esc}
-macExitHotkey = {Key.ctrl_l, Key.shift, Key.cmd_l, Key.esc}
 combo = set()
 keys = []
 
+def getConfigFile():
+    pwd = os.path.dirname(sys.argv[0])
+    pathFile = os.path.join(pwd, "config.json")
+    with open(pathFile, 'r') as f:
+        cfg = json.load(f)
+    return cfg
+
 def getHotkeysFromFile():
-    hkDir = os.path.dirname(sys.argv[0])
-    pathFile = os.path.join(hkDir, "hotkeys.txt")
+    cfg = getConfigFile()
+    if not cfg["altDir"]:
+        pwd = os.path.dirname(sys.argv[0])
+        pathFile = os.path.join(pwd, cfg["hotkeyFile"]) 
+    else:
+        pwd = os.path.dirname(cfg["altDir"])
+        pathFile = os.path.join(pwd, cfg["hotkeyFile"]) 
+
     with open(pathFile) as hkFile:
         hks = dict(line.strip().split("::", 1) for line in hkFile)
     return hks
@@ -36,20 +47,12 @@ def on_press(key):
         combo.add(key)
     
 def on_release(key):
-    if combo == exitHotkey:
-        print("exiting...")
-        return False
-
-    if combo == macExitHotkey:
-        print("exiting...")
-        return False
 
     if key in combo:
         combo.remove(key)
 
 def checkForHotkey():
     hk = "".join(keys)
-    #match = hotkeys.get(hk)
     match = hkDict.get(hk)
 
     if match: 
