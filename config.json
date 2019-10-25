@@ -1,4 +1,6 @@
 {
+    "exitCombo": "ctrl_l, alt_l, shift, esc",
+    "macExitCombo": "ctrl_l, cmd_l, shift, esc",
     "altDir": "",
     "hotkeyFile": "hotkeys.txt"
 }
