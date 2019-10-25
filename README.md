@@ -1,6 +1,11 @@
 # hotpy
 Python based cross-platform abbreviation hotkeys
 
+### TODO
+- Multi-line text for hotkeys.
+- Symbols in hotkey abbreviations.
+- Alert, prompt, and confirm functions for complex hotkey output.
+
 ### Installation
 hotpy requires the pynut package, install it via pip:
 
