@@ -1,12 +1,11 @@
 # hotpy
 Python based cross-platform abbreviation hotkeys
 
-### TODO
-- Multi-line text for hotkeys.
+## TODO
 - Symbols in hotkey abbreviations.
 - Alert, prompt, and confirm functions for complex hotkey output.
 
-### Installation
+## Installation
 hotpy requires the pynut package, install it via pip:
 
 `pip install pynput`
@@ -17,24 +16,46 @@ Clone hotpy to a local directory:
 
 Run `hotpy.py` to start the script
 
-### Usage
+## Usage
 
-Hotkeys are activated via the spacebar, the app will check whatever word was typed prior to hitting spacebar and if it matches an abbreviation in the `hotkeys.txt` file it will replace the word with the associcated text.
+Hotkeys are activated via the spacebar. The string of characters typed prior to hitting spacebar is compared to the list of abbreviations from the `hotkeys.txt` file. If a match is found the hotkey text will replace the abbreviation.
 
-### Hotkeys File
-By default the `hotkeys.txt` file should exist inside the root folder of the app. You can add new hotkeys to the file line by line, separating the hotkey abbreviation and text with double colons `::`
+## Hotkeys File
+Hotkeys are defined within the `hotkeys.txt` file. Create a new text file called `hotkeys.txt` inside the root folder of the app.
+
+#### Single Line Hotkeys
+ To add a single line hotkey to the `hotkeys.txt` file. Separate the hotkey abbreviation and text with double colons `::`
 
 Example:
 
-`expl::This is an example hotkey!`
+```
+expl::This is an example hotkey!
+```
 
-### Config File
-The config file has two variables that can be modified:
+#### Multi-Line Hotkeys
+ To add a multi-line hotkey to the `hotkeys.txt` file. Use the `:(` marker at the end of the hotkey abbreviation. Place your multi-line text line by line beneath the abbreviation line. End the hotkey by placing a `):` marker on it's own line beneath the text lines.
 
-`"altDir":`
+Example:
 
-Modify this string to contain the absolute path to your `hotkeys.txt` file if you do not wish to save it within the app folder. Make sure to escape any backslashes on Windows machines.
+```
+exml:(
+The text of this
+hotkey is on
+multiple lines.
+):
+```
 
-`"hotkeyFile":`
+## Config File
+The config file has two key values that can be modified:
 
-Modify this string if you decide to name your hotkey text file different than `hotkeys.txt`
+```
+"altDir": ""
+```
+
+Modify this key's value to contain the absolute path to your `hotkeys.txt` file if you do not wish to save it within the root of app folder. Make sure to escape any backslashes on Windows machines.
+
+```
+"hotkeyFile": "hotkeys.txt"
+```
+
+Modify this key's value if you decide to name your hotkey text file different than `hotkeys.txt`
