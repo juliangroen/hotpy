@@ -46,7 +46,7 @@ multiple lines.
 ```
 
 ## Config File
-The config file has two key values that can be modified:
+The `config.json` file has two key values that can be modified:
 
 ```
 "altDir": ""
