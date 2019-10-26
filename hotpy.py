@@ -27,9 +27,39 @@ def getHotkeysFromFile():
         pathFile = os.path.join(pwd, cfg["hotkeyFile"]) 
 
     with open(pathFile) as hkFile:
-        hks = dict(line.strip().split("::", 1) for line in hkFile)
+        singleLine = {}
+        multiLine = {}
+        tempKey = ""
+        tempVal = ""
+        
+        for line in hkFile:
+
+            if "::" in line:
+                k, v = line.strip().split("::", 1)
+                singleLine[k] = v
+                
+            elif ":(" in line:
+                tempKey = line.strip()[:-2]
+
+            elif "):" in line:
+                multiLine[tempKey] = tempVal
+                tempKey, tempVal = ("", "")
+
+            elif ":(" not in line and "::" not in line:
+
+                if not tempVal:
+                    tempVal = line.strip()
+
+                else:
+                    tempVal = tempVal + '\n' + line.strip()
+
+        hks = {}
+        hks.update(singleLine)
+        hks.update(multiLine)
 
     return hks
+
+hotkeyDict = getHotkeysFromFile()
 
 def on_press(key):
 
@@ -63,7 +93,7 @@ def on_release(key):
 def checkForHotkey():
 
     hk = "".join(keys)
-    match = getHotkeysFromFile().get(hk)
+    match = hotkeyDict.get(hk)
 
     if match: 
         for _ in range(len(keys) + 1):
