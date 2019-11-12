@@ -92,8 +92,12 @@ def on_release(key):
 
 def checkForHotkey():
 
-    hk = "".join(keys)
-    match = hotkeyDict.get(hk)
+    try:
+        hk = "".join(keys)
+        match = hotkeyDict.get(hk)
+    except TypeError:
+        hk = " "
+        match = hotkeyDict.get(hk)
 
     if match: 
         for _ in range(len(keys) + 1):
